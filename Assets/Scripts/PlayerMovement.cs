@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         float moveXdir = Input.GetAxis("Horizontal");
 
         moveDirection = new Vector3(moveXdir, 0, moveZdir);
-        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = transform.TransformDirection(moveDirection);    //tries to move character in facing direction
 
         if (isGrounded)
         {
