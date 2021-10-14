@@ -16,20 +16,30 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity;
     [SerializeField] private float jumpHeight;
 
+    [SerializeField] private float mouseSensitivity; //for Rotate()
+
     private CharacterController controller;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+        Rotate();
     }
 
+    private void Rotate()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+
+        transform.Rotate(Vector3.up, mouseX);
+    }
     private void Move()
     {
         isGrounded = Physics.CheckSphere(transform.position, distanceToGround, groundMask);
