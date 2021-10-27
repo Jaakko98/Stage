@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     //VARIABLES
     public float time = 0f;
-    public float highscore;
+    public int checkpointsReached;
+    private int checkpoints;
 
     //REFERENCES
     public TextMeshProUGUI timer;
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //checkpoints = FindObjectOfType
     }
 
     // Update is called once per frame

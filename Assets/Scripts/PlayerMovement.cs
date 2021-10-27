@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //VARIABLES
+
     [SerializeField] private float runSpeed;
     [SerializeField] private float airSpeed;
 
@@ -18,13 +20,20 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float mouseSensitivity; //for Rotate()
 
+
+    //REFERENCES
+
     private CharacterController controller;
+    public GameObject gm;
+
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        gm.GetComponent<GameManager>().checkpointsReached = 0;
     }
 
     // Update is called once per frame
@@ -67,10 +76,6 @@ public class PlayerMovement : MonoBehaviour
         {
             moveDirection *= airSpeed;
         }
-        
-        
-
-        
 
         controller.Move(moveDirection * Time.deltaTime);
 
@@ -81,5 +86,15 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "CheckPoint")
+        {
+            Debug.Log("hit checkpoint");
+            gm.GetComponent<GameManager>().checkpointsReached += 1;
+            other.tag = "Untagged";
+        }
     }
 }
