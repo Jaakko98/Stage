@@ -90,11 +90,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "CheckPoint")
+        if(other.CompareTag("CheckPoint"))
         {
             Debug.Log("hit checkpoint");
-            gm.GetComponent<GameManager>().checkpointsReached += 1;
-            other.tag = "Untagged";
+            gm.GetComponent<GameManager>().CheckpointReached();
+            other.tag = "Used";
         }
     }
 }
