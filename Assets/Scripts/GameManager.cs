@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,12 @@ public class GameManager : MonoBehaviour
 
     //REFERENCES
     public TextMeshProUGUI timer;
-    private GameObject player;
+    public TextMeshProUGUI highscore;
+    public TextMeshProUGUI endtimer;
+    public GameObject player;
+    public GameObject startposition;
+    public GameObject endgamecanvas;
+
 
     //METHODS
     public void CheckpointReached()
@@ -24,6 +30,16 @@ public class GameManager : MonoBehaviour
         if(checkpointsReached <= checkpoints)
         {
             gameOngoing = false;
+            
+            if(PlayerPrefs.GetFloat("Highscore") == 0 || time < PlayerPrefs.GetFloat("Highscore"))
+            {
+                PlayerPrefs.SetFloat("Highscore", time);
+                
+            }
+            highscore.text = "Highscore: " + FormatTime(PlayerPrefs.GetFloat("Highscore"));
+            endtimer.text = "Time: " + FormatTime(time);
+            endgamecanvas.SetActive(true);
+            player.GetComponent<PlayerMovement>().enabled = false;
             Debug.Log("Game ended");
             //end game
         }
@@ -38,10 +54,13 @@ public class GameManager : MonoBehaviour
 
     private void Restart()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        /* old restart
         time = 0f;
         Debug.Log("position" + player.transform.position);
         Debug.Log("startpos" + playerStartpos);
-        player.transform.position = playerStartpos;
+        //player.transform.position = playerStartpos;
+        //player.transform.position = startposition.transform.position;
         checkpointsReached = 0;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
@@ -51,26 +70,29 @@ public class GameManager : MonoBehaviour
             checkpoint.tag = "CheckPoint";
         }
         Debug.Log("restarted");
+        */
     }
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        startposition = GameObject.Find("StartPosition");
         playerStartpos = player.transform.position;
         checkpointObjects = GameObject.FindGameObjectsWithTag("CheckPoint");
         checkpoints = checkpointObjects.Length;
+        Debug.Log(PlayerPrefs.GetFloat("Highscore"));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!gameOngoing)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                Restart();
-            }
+            Restart();
+        }
+        if (!gameOngoing)
+        {
             return;
         }
         time += Time.deltaTime;

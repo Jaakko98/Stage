@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //VARIABLES
 
+    [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
     [SerializeField] private float airSpeed;
 
@@ -64,23 +65,32 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = new Vector3(moveXdir, 0, moveZdir);
         moveDirection = transform.TransformDirection(moveDirection);    //tries to move character in facing direction
 
-        if (isGrounded)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             moveDirection *= runSpeed;
+        }
+        else
+        {
+            moveDirection *= walkSpeed;
+        }
+        if (isGrounded)
+        {
+            
             if (Input.GetButton("Jump"))
             {
                 Jump();
             }
         }
+        /*
         else if (!isGrounded)
         {
             moveDirection *= airSpeed;
         }
-
+        */
         controller.Move(moveDirection * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;     //calculating gravity
-        controller.Move(velocity * Time.deltaTime);     //deltaTime twice cause math
+        controller.Move(velocity * Time.deltaTime);     //deltaTime twice because math
     }
 
     private void Jump()
