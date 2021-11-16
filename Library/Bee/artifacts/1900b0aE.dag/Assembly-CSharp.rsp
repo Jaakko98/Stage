@@ -330,6 +330,7 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/MainMenu.cs"
 "Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/Teleport.cs"
 "Assets/Scripts/TwoDimensionalAnimationStateController.cs"
 -langversion:8.0
 

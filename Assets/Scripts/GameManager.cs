@@ -54,13 +54,13 @@ public class GameManager : MonoBehaviour
 
     private void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        /* old restart
-        time = 0f;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
         Debug.Log("position" + player.transform.position);
         Debug.Log("startpos" + playerStartpos);
-        //player.transform.position = playerStartpos;
-        //player.transform.position = startposition.transform.position;
+        player.GetComponent<CharacterController>().enabled = false;
+        player.transform.position = playerStartpos;
+        player.GetComponent<CharacterController>().enabled = true;
         checkpointsReached = 0;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
@@ -70,7 +70,9 @@ public class GameManager : MonoBehaviour
             checkpoint.tag = "CheckPoint";
         }
         Debug.Log("restarted");
-        */
+        endgamecanvas.SetActive(false);
+        player.GetComponent<PlayerMovement>().enabled = true;
+        time = 0f;
     }
 
     // Start is called before the first frame update
@@ -81,7 +83,6 @@ public class GameManager : MonoBehaviour
         playerStartpos = player.transform.position;
         checkpointObjects = GameObject.FindGameObjectsWithTag("CheckPoint");
         checkpoints = checkpointObjects.Length;
-        Debug.Log(PlayerPrefs.GetFloat("Highscore"));
     }
 
     // Update is called once per frame

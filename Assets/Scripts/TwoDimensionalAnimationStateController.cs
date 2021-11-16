@@ -16,7 +16,6 @@ public class TwoDimensionalAnimationStateController : MonoBehaviour
 
     //METHODS
 
-
     // Start is called before the first frame update
     void Start()
     {

@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController controller;
     public GameObject gm;
+    private Animator animator;
 
 
     // Start is called before the first frame update
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         gm.GetComponent<GameManager>().checkpointsReached = 0;
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -75,13 +77,14 @@ public class PlayerMovement : MonoBehaviour
         }
         if (isGrounded)
         {
-            
+            animator.SetBool("IsJumping", false);
             if (Input.GetButton("Jump"))
             {
+                animator.SetBool("IsJumping", true);
                 Jump();
             }
         }
-        /*
+        /* removed for better experience in air
         else if (!isGrounded)
         {
             moveDirection *= airSpeed;
