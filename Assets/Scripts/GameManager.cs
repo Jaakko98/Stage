@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public void CheckpointReached()
     {
         checkpointsReached += 1;
-        if(checkpointsReached <= checkpoints)
+        if(checkpointsReached >= checkpoints)
         {
             gameOngoing = false;
             
@@ -55,11 +55,9 @@ public class GameManager : MonoBehaviour
     private void Restart()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
-        Debug.Log("position" + player.transform.position);
-        Debug.Log("startpos" + playerStartpos);
         player.GetComponent<CharacterController>().enabled = false;
         player.transform.position = playerStartpos;
+        player.transform.rotation = Quaternion.identity;
         player.GetComponent<CharacterController>().enabled = true;
         checkpointsReached = 0;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -69,7 +67,6 @@ public class GameManager : MonoBehaviour
         {
             checkpoint.tag = "CheckPoint";
         }
-        Debug.Log("restarted");
         endgamecanvas.SetActive(false);
         player.GetComponent<PlayerMovement>().enabled = true;
         time = 0f;
@@ -83,14 +80,22 @@ public class GameManager : MonoBehaviour
         playerStartpos = player.transform.position;
         checkpointObjects = GameObject.FindGameObjectsWithTag("CheckPoint");
         checkpoints = checkpointObjects.Length;
+        Debug.Log("checkpointobjects " + checkpointObjects);
+        Debug.Log("checkpoints " + checkpoints);
+        Debug.Log("checkpoints reached " + checkpointsReached);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R))
         {
             Restart();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene(0);
         }
         if (!gameOngoing)
         {

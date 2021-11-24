@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TwoDimensionalAnimationStateController : MonoBehaviour
 {
+    //code from:
+    //https://www.youtube.com/watch?v=_J8RPIaO2Lc&list=PLwyUzJb_FNeTQwyGujWRLqnfKpV-cj-eO&index=5
+
+
     //VARIABLES
     private float velocityZ = 0.0f;
     private float velocityX = 0.0f;
