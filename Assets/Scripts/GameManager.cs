@@ -54,7 +54,11 @@ public class GameManager : MonoBehaviour
 
     private void Restart()
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //easy restart
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        //hard restart, missing zombie instantiate
+        /*
         player.GetComponent<CharacterController>().enabled = false;
         player.transform.position = playerStartpos;
         player.transform.rotation = Quaternion.identity;
@@ -70,6 +74,7 @@ public class GameManager : MonoBehaviour
         endgamecanvas.SetActive(false);
         player.GetComponent<PlayerMovement>().enabled = true;
         time = 0f;
+        */
     }
 
     // Start is called before the first frame update
