@@ -334,6 +334,7 @@
 "Assets/Scripts/PlayerMovement.cs"
 "Assets/Scripts/Teleport.cs"
 "Assets/Scripts/TwoDimensionalAnimationStateController.cs"
+"Assets/Scripts/ZombieAI.cs"
 -langversion:8.0
 
 /deterministic
