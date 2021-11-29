@@ -14,6 +14,8 @@ public class PlayerCombat : MonoBehaviour
     private Health playerHealth;
     private Health enemyHealth;
     private GameObject touchedObject;
+    private GameObject model;
+    private Animator anim;
     
 
     //METHODS
@@ -22,7 +24,6 @@ public class PlayerCombat : MonoBehaviour
     {
         if(other.tag == "Enemy" && Input.GetButtonDown("Fire1") && attackCooldown <= 0f)
         {
-            attackCooldown = 1 / attackSpeed;
             Debug.Log("hit enemy");
             enemyHealth = other.GetComponent<Health>();
             enemyHealth.decreaseHealth(20);
@@ -34,11 +35,18 @@ public class PlayerCombat : MonoBehaviour
     void Start()
     {
         playerHealth = GetComponent<Health>();
+        model = GameObject.Find("model");
+        anim = model.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     private void Update()
     {
         attackCooldown -= Time.deltaTime;
+        if (Input.GetButtonDown("Fire1") && attackCooldown <= 0f)
+        {
+            attackCooldown = 1 / attackSpeed;
+            anim.SetTrigger("Attack");
+        }
     }
 }
