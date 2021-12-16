@@ -15,11 +15,15 @@ public class Health : MonoBehaviour
     public void increaseHealth(int amount)
     {
         health += amount;
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
     }
     public void decreaseHealth(int amount)
     {
         health -= amount;
-        if(health < 0)
+        if(health <= 0)
         {
             health = 0;
             Debug.Log(gameObject.name + " Health is 0");

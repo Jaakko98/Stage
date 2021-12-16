@@ -11,15 +11,11 @@ public class PlayerCombat : MonoBehaviour
 
     //REFERENCES
 
-    private Health playerHealth;
     private Health enemyHealth;
-    private GameObject touchedObject;
-    private GameObject model;
     private Animator anim;
-    
+
 
     //METHODS
-
     private void OnTriggerStay(Collider other)
     {
         if(other.tag == "Enemy" && Input.GetButtonDown("Fire1") && attackCooldown <= 0f)
@@ -29,14 +25,13 @@ public class PlayerCombat : MonoBehaviour
             enemyHealth.decreaseHealth(20);
             Debug.Log("enemy health is " + enemyHealth.getHealth());
         }
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        playerHealth = GetComponent<Health>();
-        model = GameObject.Find("model");
-        anim = model.GetComponent<Animator>();
+        anim = GameObject.Find("model").GetComponent<Animator>();
     }
 
     // Update is called once per frame

@@ -27,14 +27,14 @@ public class GameManager : MonoBehaviour
     public void CheckpointReached()
     {
         checkpointsReached += 1;
-        if(checkpointsReached >= checkpoints)
+        if (checkpointsReached >= checkpoints)
         {
             gameOngoing = false;
-            
-            if(PlayerPrefs.GetFloat("Highscore") == 0 || time < PlayerPrefs.GetFloat("Highscore"))
+
+            if (PlayerPrefs.GetFloat("Highscore") == 0 || time < PlayerPrefs.GetFloat("Highscore"))
             {
                 PlayerPrefs.SetFloat("Highscore", time);
-                
+
             }
             highscore.text = "Highscore: " + FormatTime(PlayerPrefs.GetFloat("Highscore"));
             endtimer.text = "Time: " + FormatTime(time);
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             Restart();
         }
